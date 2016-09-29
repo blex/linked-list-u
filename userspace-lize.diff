@@ -1,8 +1,6 @@
-diff --git a/list.h b/list.h
-index ef95941..78e85f6 100644
---- a/list.h
-+++ b/list.h
-@@ -1,10 +1,20 @@
+--- list.h	2016-09-29 19:03:21.822966377 +0800
++++ list.h.hack	2016-09-29 19:03:44.952967251 +0800
+@@ -1,10 +1,23 @@
  #ifndef _LINUX_LIST_H
  #define _LINUX_LIST_H
  
@@ -10,6 +8,9 @@ index ef95941..78e85f6 100644
 -#include <linux/stddef.h>
 -#include <linux/poison.h>
 -#include <linux/const.h>
++#undef offsetof
++#define offsetof(TYPE, MEMBER) ((size_t) &((TYPE *)0)->MEMBER)
++
 +//copy from linux/kernel.h
 +#define container_of(ptr, type, member) ({                      \
 +	const typeof( ((type *)0)->member ) *__mptr = (ptr);    \
@@ -27,7 +28,7 @@ index ef95941..78e85f6 100644
  
  /*
   * Simple doubly linked list implementation.
-@@ -16,6 +26,11 @@
+@@ -16,6 +29,11 @@
   * using the generic single-entry routines.
   */
  
@@ -39,7 +40,7 @@ index ef95941..78e85f6 100644
  #define LIST_HEAD_INIT(name) { &(name), &(name) }
  
  #define LIST_HEAD(name) \
-@@ -590,6 +605,13 @@ static inline void list_splice_tail_init(struct list_head *list,
+@@ -590,6 +608,13 @@
   * too wasteful.
   * You lose the ability to access the tail in O(1).
   */

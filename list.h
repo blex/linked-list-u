@@ -1,6 +1,9 @@
 #ifndef _LINUX_LIST_H
 #define _LINUX_LIST_H
 
+#undef offsetof
+#define offsetof(TYPE, MEMBER) ((size_t) &((TYPE *)0)->MEMBER)
+
 //copy from linux/kernel.h
 #define container_of(ptr, type, member) ({                      \
 	const typeof( ((type *)0)->member ) *__mptr = (ptr);    \
